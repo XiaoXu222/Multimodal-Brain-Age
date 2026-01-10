@@ -3,7 +3,7 @@ This project implements a **PyTorch-based multimodal deep learning model** to pr
 
 ⚠️ **Work in Progress** – still under development.
 
----
+
 
 ## Features
 
@@ -11,7 +11,7 @@ This project implements a **PyTorch-based multimodal deep learning model** to pr
 - Handles **3D MRI volumes** (128×128×128) and **1D SNPs**  
 - Saves **model checkpoints** and **training history figures** automatically  
 
----
+
 
 ## Data
 
@@ -19,27 +19,24 @@ This project implements a **PyTorch-based multimodal deep learning model** to pr
 - **SNP data**: NumPy array `(num_samples, num_snps)`  
 - **Age labels**: NumPy array `(num_samples,)`  
 
----
+
 
 ## Usage
 
-1. **Set paths** in `main_train.py`:
-
-```python
+1. Set paths in main_train.py
 brains_file = "/path/to/mri_data.npy"
 cas_file = "/path/to/age_labels.npy"
 snps_file = "/path/to/snp_data.npy"
 save_loc = "/path/to/save/"
 
-2. **Adjust hyperparameters** in `main_train.py` if needed:
+2. Adjust hyperparameters in main_train.py if needed
+epochs = 500           # total number of training epochs
+pretrain_epochs = 30   # number of pretraining epochs (MSE only)
+batch_size = 16        # number of samples per batch
+lr = 1e-3              # learning rate
 
-- `epochs` – total number of training epochs  
-- `pretrain_epochs` – number of pretraining epochs (MSE only)  
-- `batch_size` – number of samples per batch  
-- `lr` – learning rate  
-
-3. **Run training**:
-
-```bash
-python main_train.py
+3. Run training
+# Pretraining runs first (MSE only)
+# Fine-tuning follows (MSE + contrastive loss)
+!python main_train.py
 
