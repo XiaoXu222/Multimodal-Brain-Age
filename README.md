@@ -23,20 +23,23 @@ This project implements a **PyTorch-based multimodal deep learning model** to pr
 
 ## Usage
 
-1. Set paths in main_train.py
+1. Set paths in `main_train.py`:
+```python
 brains_file = "/path/to/mri_data.npy"
 cas_file = "/path/to/age_labels.npy"
 snps_file = "/path/to/snp_data.npy"
 save_loc = "/path/to/save/"
 
-2. Adjust hyperparameters in main_train.py if needed
+3. Adjust hyperparameters in main_train.py if needed
+```python
 epochs = 500           # total number of training epochs
 pretrain_epochs = 30   # number of pretraining epochs (MSE only)
 batch_size = 16        # number of samples per batch
 lr = 1e-3              # learning rate
 
-3. Run training
-# Pretraining runs first (MSE only)
-# Fine-tuning follows (MSE + contrastive loss)
-!python main_train.py
+4. Run training
+-Pretraining runs first (MSE only)
+-Fine-tuning follows (MSE + contrastive loss)
+```python
+python main_train.py
 
