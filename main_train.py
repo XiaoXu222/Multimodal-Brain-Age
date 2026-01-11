@@ -61,6 +61,10 @@ val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_w
 model = BAModel(num_snps=num_snps).to(device)
 optimizer = optim.Adam(model.parameters(), lr=lr)
 mse_loss_fn = torch.nn.MSELoss()
+history = {
+    "train_loss": [], "val_loss": [],
+    "train_mae": [], "val_mae": []
+}
 
 # ---------------- Unified Evaluation ----------------
 def evaluate(model, data_loader, loss_fn):
@@ -162,10 +166,6 @@ for epoch in range(pretrain_epochs, epochs):
     save_checkpoint(model, optimizer, epoch+1, save_loc, "finetune")
 
 # ---------------- Save Figures ----------------
-history = {
-    "train_loss": [], "val_loss": [],
-    "train_mae": [], "val_mae": []
-}
 save_mae_fig(history, os.path.join(save_loc, "MAE_history.jpg"))
 save_loss_fig(history, os.path.join(save_loc, "Loss_history.jpg"))
 print(f"✅ Training completed.")
