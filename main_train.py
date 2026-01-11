@@ -123,7 +123,8 @@ age_cl_loss_fn = MSEWithAgeContrastive(
     lambda_s2m=0.2,
     lambda_m2m=0.2,
     lambda_s2s=0.1,
-    tau=tau
+    tau=tau,
+    lambda_cl=0.1
 )
 print("Starting fine-tuning (MSE + Age-guided Contrastive Loss)...")
 for epoch in range(pretrain_epochs, epochs):
