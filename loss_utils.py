@@ -8,13 +8,14 @@ class MSEWithAgeContrastive(torch.nn.Module):
     """
     Wrapper loss: MSE + age-guided contrastive loss
     """
-    def __init__(self, lambda_m2s=0.2, lambda_s2m=0.2, lambda_m2m=0.2, lambda_s2s=0.1, tau=0.07):
+    def __init__(self, lambda_m2s=0.2, lambda_s2m=0.2, lambda_m2m=0.2, lambda_s2s=0.1, tau=0.07, lambda_cl=0.1):
         super().__init__()
         self.lambda_m2s = lambda_m2s
         self.lambda_s2m = lambda_s2m
         self.lambda_m2m = lambda_m2m
         self.lambda_s2s = lambda_s2s
         self.tau = tau
+        self.lambda_cl = lambda_cl
         self.mse = torch.nn.MSELoss()
 
     def forward(self, age_pred, age_true, mri_emb, snp_emb):
@@ -63,4 +64,4 @@ class MSEWithAgeContrastive(torch.nn.Module):
                     self.lambda_m2m * loss_m2m +
                     self.lambda_s2s * loss_s2s)
 
-        return loss + total_cl
+        return loss + self.lambda_cl * total_cl
